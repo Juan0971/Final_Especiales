@@ -1,13 +1,11 @@
 import numpy as np
 from scipy.signal import stft, istft
 from audio_signal import AudioSignal
-
 class FourierProcessor:
     def __init__(self, nperseg=2048, noverlap=1024, window='hann'):
-        self.nperseg = nperseg      # Tamaño de la ventana de análisis
-        self.noverlap = noverlap    # Solapamiento (Overlap-Add)
+        self.nperseg = nperseg
+        self.noverlap = noverlap
         self.window = window
-
     def compute_stft(self, audio_signal: AudioSignal):
         """Calcula la Transformada de Fourier de Tiempo Corto (STFT)."""
         frequencies, times, Zxx = stft(
@@ -18,7 +16,6 @@ class FourierProcessor:
             noverlap=self.noverlap
         )
         return frequencies, times, Zxx
-
     def compute_istft(self, Zxx, sample_rate):
         """Reconstruye la señal temporal mediante la IFFT (Overlap-Add)."""
         _, reconstructed_samples = istft(
